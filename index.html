@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AN Psixoloji Dəstək və Reabilitasiya Mərkəzi</title>
+<meta name="description" content="Xüsusi qayğıya ehtiyacı olan uşaqlar üçün icma əsaslı inteqrasiya və uzaqdan dəstək.">
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Samir210-az/an-merkezi/main/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --bordo: #6A0000;
+    --bordo-light: #B00001;
+    --gold: #D2A55D;
+    --gold-light: #E6B05A;
+    --teal: #2A9D8F;
+    --teal-light: #3bbdad;
+    --bg: #FFFBF8;
+    --card: #FEF3E8;
+    --text: #3A2A20;
+    --text-light: #7A6A60;
+    --white: #ffffff;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:100;
+    background: rgba(255,251,248,0.95); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(210,165,93,0.2);
+    padding: 12px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { display:flex; align-items:center; gap:10px; }
+  .nav-logo img { width:38px; height:38px; object-fit:contain; }
+  .nav-logo span { font-family:'Playfair Display',serif; font-size:15px; color:var(--bordo); font-weight:700; line-height:1.2; }
+  .nav-cta {
+    background: var(--bordo); color: white; border:none;
+    padding: 8px 18px; border-radius:20px; font-size:13px; font-weight:600;
+    text-decoration:none; cursor:pointer;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--bordo-light); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--bordo) 0%, #3A0000 60%, #1a0000 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 100px 24px 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
+    background: radial-gradient(ellipse at 60% 40%, rgba(210,165,93,0.12) 0%, transparent 60%);
+    pointer-events:none;
+  }
+  .hero-badge {
+    background: rgba(210,165,93,0.15); border: 1px solid rgba(210,165,93,0.4);
+    color: var(--gold-light); padding: 6px 16px; border-radius:20px;
+    font-size: 12px; font-weight:600; letter-spacing:1px; text-transform:uppercase;
+    margin-bottom: 24px;
+  }
+  .hero-logo { width:90px; height:90px; object-fit:contain; margin-bottom:20px; filter: drop-shadow(0 4px 20px rgba(210,165,93,0.3)); }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 7vw, 48px);
+    color: white; line-height: 1.2; margin-bottom: 16px;
+    max-width: 600px;
+  }
+  .hero h1 span { color: var(--gold-light); }
+  .hero p {
+    color: rgba(255,255,255,0.75); font-size: clamp(14px,3.5vw,17px);
+    max-width: 480px; line-height: 1.7; margin-bottom: 36px;
+  }
+  .hero-btns { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+  .btn-primary {
+    background: var(--gold); color: var(--bordo);
+    padding: 14px 28px; border-radius:30px; font-size:15px; font-weight:700;
+    text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(210,165,93,0.4);
+  }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow: 0 8px 30px rgba(210,165,93,0.5); }
+  .btn-secondary {
+    background: rgba(255,255,255,0.1); color: white;
+    padding: 14px 28px; border-radius:30px; font-size:15px; font-weight:600;
+    text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    border: 1px solid rgba(255,255,255,0.25);
+    transition: background 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.18); }
+  .hero-stats {
+    display:flex; gap:32px; margin-top:48px; flex-wrap:wrap; justify-content:center;
+  }
+  .stat { text-align:center; }
+  .stat-num { font-family:'Playfair Display',serif; font-size:28px; color:var(--gold-light); font-weight:700; }
+  .stat-label { font-size:11px; color:rgba(255,255,255,0.55); text-transform:uppercase; letter-spacing:0.5px; margin-top:2px; }
+  .hero-scroll {
+    position:absolute; bottom:24px; left:50%; transform:translateX(-50%);
+    color:rgba(255,255,255,0.4); font-size:20px; animation: bounce 2s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+  /* SECTION BASE */
+  section { padding: 64px 24px; max-width: 720px; margin: 0 auto; }
+  .section-eyebrow {
+    font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+    color: var(--teal); margin-bottom:12px;
+  }
+  .section-title {
+    font-family:'Playfair Display',serif;
+    font-size: clamp(22px,5.5vw,34px);
+    color: var(--bordo); line-height:1.3; margin-bottom:16px;
+  }
+  .section-sub { color: var(--text-light); font-size:15px; line-height:1.7; margin-bottom:32px; }
+
+  /* PROBLEM */
+  .problem-section { background: var(--white); border-radius:24px; margin:0 16px; padding:40px 28px; box-shadow: 0 2px 20px rgba(106,0,0,0.06); }
+  .problem-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px; }
+  .problem-card {
+    background: var(--card); border-radius:16px; padding:20px 16px; text-align:center;
+    border-left:3px solid var(--gold);
+  }
+  .problem-card .big { font-family:'Playfair Display',serif; font-size:28px; color:var(--bordo); font-weight:700; }
+  .problem-card p { font-size:12px; color:var(--text-light); margin-top:4px; line-height:1.5; }
+
+  /* MODELS */
+  .models-wrap { display:flex; flex-direction:column; gap:20px; }
+  .model-card {
+    background: white; border-radius:20px; padding:28px 24px;
+    box-shadow: 0 2px 16px rgba(106,0,0,0.07);
+    border-top: 4px solid var(--bordo);
+    transition: transform 0.2s;
+  }
+  .model-card:hover { transform: translateY(-3px); }
+  .model-card.teal { border-top-color: var(--teal); }
+  .model-num { font-size:11px; font-weight:700; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:8px; }
+  .model-card h3 { font-family:'Playfair Display',serif; font-size:18px; color:var(--bordo); margin-bottom:10px; }
+  .model-card.teal h3 { color:var(--teal); }
+  .model-card p { font-size:14px; color:var(--text-light); line-height:1.7; margin-bottom:14px; }
+  .model-tags { display:flex; flex-wrap:wrap; gap:8px; }
+  .tag {
+    background:var(--card); color:var(--bordo); font-size:11px; font-weight:600;
+    padding:4px 10px; border-radius:12px;
+  }
+  .tag.teal { background:#e8f7f6; color:var(--teal); }
+
+  /* ROI CALCULATOR */
+  .calc-section {
+    background: linear-gradient(135deg, var(--bordo) 0%, #4a0000 100%);
+    border-radius: 28px; padding: 40px 28px; margin: 0 16px;
+    box-shadow: 0 8px 40px rgba(106,0,0,0.3);
+  }
+  .calc-section .section-eyebrow { color: var(--gold-light); }
+  .calc-section .section-title { color: white; }
+  .calc-section .section-sub { color:rgba(255,255,255,0.65); }
+  .calc-grid { display:flex; flex-direction:column; gap:20px; }
+  .calc-input-group label {
+    display:block; font-size:13px; font-weight:600; color:rgba(255,255,255,0.8);
+    margin-bottom:8px;
+  }
+  .calc-input-row { display:flex; align-items:center; gap:12px; }
+  .calc-input-row input[type=range] {
+    flex:1; -webkit-appearance:none; height:6px;
+    background: rgba(255,255,255,0.2); border-radius:3px; outline:none;
+  }
+  .calc-input-row input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance:none; width:22px; height:22px; border-radius:50%;
+    background: var(--gold); cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.3);
+  }
+  .range-val {
+    min-width:48px; text-align:center; font-family:'Playfair Display',serif;
+    font-size:18px; font-weight:700; color:var(--gold-light);
+  }
+  .calc-results {
+    background: rgba(255,255,255,0.08); border-radius:20px; padding:24px;
+    border:1px solid rgba(210,165,93,0.3); margin-top:8px;
+  }
+  .calc-results-title { font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:16px; }
+  .result-row { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.08); }
+  .result-row:last-child { border-bottom:none; }
+  .result-label { font-size:13px; color:rgba(255,255,255,0.7); }
+  .result-value { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--gold-light); }
+  .result-value.big { font-size:24px; color:#7fff7f; }
+  .calc-note { font-size:11px; color:rgba(255,255,255,0.4); margin-top:14px; line-height:1.6; text-align:center; }
+
+  /* RESULTS */
+  .results-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .result-card {
+    background:white; border-radius:20px; padding:24px 18px; text-align:center;
+    box-shadow:0 2px 16px rgba(106,0,0,0.06);
+  }
+  .result-card .icon { font-size:28px; margin-bottom:10px; }
+  .result-card .num { font-family:'Playfair Display',serif; font-size:30px; color:var(--bordo); font-weight:700; }
+  .result-card .desc { font-size:12px; color:var(--text-light); margin-top:4px; line-height:1.5; }
+
+  /* TESTIMONIALS */
+  .testi-card {
+    background: white; border-radius:20px; padding:28px 24px;
+    box-shadow:0 2px 16px rgba(106,0,0,0.07); margin-bottom:16px;
+    border-left: 4px solid var(--gold);
+  }
+  .testi-text { font-size:15px; color:var(--text); line-height:1.8; font-style:italic; margin-bottom:14px; }
+  .testi-author { display:flex; align-items:center; gap:10px; }
+  .testi-avatar {
+    width:40px; height:40px; border-radius:50%;
+    background: linear-gradient(135deg, var(--gold), var(--bordo));
+    display:flex; align-items:center; justify-content:center;
+    color:white; font-weight:700; font-size:16px;
+  }
+  .testi-name { font-size:13px; font-weight:600; color:var(--text); }
+  .testi-role { font-size:12px; color:var(--text-light); }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--card); border-radius:24px; margin:0 16px;
+    padding:40px 28px; text-align:center;
+  }
+  .contact-items { display:flex; flex-direction:column; gap:14px; margin:28px 0; }
+  .contact-item {
+    display:flex; align-items:center; gap:14px;
+    background:white; border-radius:14px; padding:14px 18px;
+    text-decoration:none; color:var(--text);
+    box-shadow:0 1px 8px rgba(106,0,0,0.05);
+    transition: transform 0.2s;
+  }
+  .contact-item:hover { transform:translateX(4px); }
+  .contact-item .ci-icon {
+    width:40px; height:40px; border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; flex-shrink:0;
+  }
+  .ci-phone { background:#fff0f0; color:var(--bordo); }
+  .ci-insta { background:#fff0e8; color:#E1306C; }
+  .ci-loc { background:#e8f7f6; color:var(--teal); }
+  .contact-item .ci-text { text-align:left; }
+  .ci-label { font-size:11px; color:var(--text-light); }
+  .ci-val { font-size:14px; font-weight:600; }
+
+  /* FOOTER */
+  footer {
+    background: #1a0000; color:rgba(255,255,255,0.5);
+    text-align:center; padding:28px 24px; font-size:13px;
+  }
+  footer a { color:var(--gold-light); text-decoration:none; }
+  footer a:hover { text-decoration:underline; }
+  .footer-logo { width:44px; margin-bottom:12px; opacity:0.8; }
+
+  /* POPUP OVERLAY */
+  .popup-overlay {
+    display:none; position:fixed; inset:0; z-index:200;
+    background:rgba(0,0,0,0.6); backdrop-filter:blur(4px);
+    align-items:center; justify-content:center; padding:20px;
+  }
+  .popup-overlay.active { display:flex; }
+  .popup-box {
+    background:white; border-radius:24px; padding:32px 28px;
+    max-width:420px; width:100%; position:relative;
+    max-height:90vh; overflow-y:auto;
+    animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes popIn { from{opacity:0;transform:scale(0.85)} to{opacity:1;transform:scale(1)} }
+  .popup-close {
+    position:absolute; top:16px; right:16px;
+    background:var(--card); border:none; width:32px; height:32px;
+    border-radius:50%; cursor:pointer; font-size:16px; color:var(--text-light);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .popup-icon { font-size:40px; text-align:center; margin-bottom:12px; }
+  .popup-title { font-family:'Playfair Display',serif; font-size:20px; color:var(--bordo); text-align:center; margin-bottom:8px; }
+  .popup-sub { font-size:13px; color:var(--text-light); text-align:center; margin-bottom:20px; line-height:1.6; }
+  .popup-form { display:flex; flex-direction:column; gap:12px; }
+  .popup-form input, .popup-form textarea {
+    border:1.5px solid #e8e0d8; border-radius:12px; padding:12px 16px;
+    font-size:14px; font-family:'Inter',sans-serif; color:var(--text);
+    outline:none; transition:border 0.2s; background:var(--bg);
+    width:100%;
+  }
+  .popup-form input:focus, .popup-form textarea:focus { border-color:var(--gold); }
+  .popup-form textarea { resize:vertical; min-height:80px; }
+  .popup-submit {
+    background:var(--bordo); color:white; border:none; border-radius:12px;
+    padding:14px; font-size:15px; font-weight:700; cursor:pointer;
+    font-family:'Inter',sans-serif; transition:background 0.2s;
+  }
+  .popup-submit:hover { background:var(--bordo-light); }
+  .popup-success { text-align:center; padding:20px 0; display:none; }
+  .popup-success .s-icon { font-size:48px; margin-bottom:10px; }
+  .popup-success p { font-size:15px; color:var(--text); line-height:1.7; }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.6s, transform 0.6s; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="https://raw.githubusercontent.com/Samir210-az/an-merkezi/main/logo.png" alt="AN Logo">
+    <span>AN Psixoloji<br>Mərkəzi</span>
+  </div>
+  <a class="nav-cta" href="#elaqe">Əlaqə</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge"><i class="fas fa-star"></i> &nbsp;Sübuta əsaslanan metodologiya</div>
+  <img class="hero-logo" src="https://raw.githubusercontent.com/Samir210-az/an-merkezi/main/logo.png" alt="AN Logo">
+  <h1>Güclü tərəfləri kəşf edir,<br><span>cəmiyyətə birləşdiririk</span></h1>
+  <p>Xüsusi qayğıya ehtiyacı olan uşaqlar üçün icma əsaslı inteqrasiya və uzaqdan dəstək xidmətləri — Bakı, Azərbaycan.</p>
+  <div class="hero-btns">
+    <a class="btn-primary" href="#modeller"><i class="fas fa-heart"></i> Xidmətlər</a>
+    <a class="btn-secondary" href="#roi-calc"><i class="fas fa-calculator"></i> ROI Hesabla</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">89%</div><div class="stat-label">İnkişaf nəticəsi</div></div>
+    <div class="stat"><div class="stat-num">94%</div><div class="stat-label">Valideyn məmnunluğu</div></div>
+    <div class="stat"><div class="stat-num">120+</div><div class="stat-label">Ailə xidmətdə</div></div>
+    <div class="stat"><div class="stat-num">47</div><div class="stat-label">Rayon çatdırılıb</div></div>
+  </div>
+  <div class="hero-scroll"><i class="fas fa-chevron-down"></i></div>
+</div>
+
+<!-- PROBLEM -->
+<div style="padding:48px 0 0;">
+  <div class="problem-section reveal">
+    <div class="section-eyebrow">Milli Kontekst</div>
+    <div class="section-title">Azərbaycanda vəziyyət</div>
+    <div class="section-sub">Əlilliklə qeydiyyatda olan uşaqların böyük əksəriyyəti lazımi dəstəkdən məhrumdur.</div>
+    <div class="problem-grid">
+      <div class="problem-card"><div class="big">~67K</div><p>Uşaq əlilliklə qeydiyyatda</p></div>
+      <div class="problem-card"><div class="big">~12K</div><p>Yalnız bu qədəri təhsildə</p></div>
+      <div class="problem-card"><div class="big">0–5</div><p>Ən kritik müdaxilə yaşı</p></div>
+      <div class="problem-card"><div class="big">1:3</div><p>ROI — hər manata 3 manat</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODELS -->
+<section id="modeller">
+  <div class="section-eyebrow reveal">Xidmət Modelləri</div>
+  <div class="section-title reveal">İki güclü yanaşma</div>
+  <div class="section-sub reveal">Beynəlxalq sübuta əsaslanan metodologiya — Azərbaycan reallığına uyğunlaşdırılmış.</div>
+  <div class="models-wrap">
+    <div class="model-card reveal">
+      <div class="model-num">Model 01 · Böyük Britaniya Təcrübəsi</div>
+      <h3>İcma Əsaslı İnteqrasiya</h3>
+      <p>Uşaq mütəxəssis müşayiəti ilə real cəmiyyət mühitinə (kafe, kitabxana, idman zalı, muzey) çıxır. Sosial bacarıqlar real həyatda inkişaf edir.</p>
+      <div class="model-tags">
+        <span class="tag">Real mühit</span>
+        <span class="tag">Sosial inteqrasiya</span>
+        <span class="tag">Mütəxəssis müşayiəti</span>
+        <span class="tag">Bakı daxili</span>
+      </div>
+    </div>
+    <div class="model-card teal reveal">
+      <div class="model-num" style="color:var(--teal)">Model 02 · Kanada Təcrübəsi</div>
+      <h3>Hiper-Lokalizasiya / Uzaqdan Dəstək</h3>
+      <p>Regionlardakı ailələrə onlayn mütəxəssis dəstəyi + evə çatdırılan avadanlıq qutusu. Məsafə maneəsini aradan qaldırır.</p>
+      <div class="model-tags">
+        <span class="tag teal">Bütün regionlar</span>
+        <span class="tag teal">Onlayn sessiyalar</span>
+        <span class="tag teal">Avadanlıq qutusu</span>
+        <span class="tag teal">Valideyn dəstəyi</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROI CALCULATOR -->
+<div id="roi-calc" style="padding:0 0 48px;">
+  <div class="calc-section reveal">
+    <div class="section-eyebrow">İnvestisiya Hesablaması</div>
+    <div class="section-title">ROI Kalkulyatoru</div>
+    <div class="section-sub">Neçə uşağa investisiya etmək istəyirsiniz? Gözlənilən geri qayıdışı hesablayın.</div>
+    <div class="calc-grid">
+      <div class="calc-input-group">
+        <label><i class="fas fa-child"></i> &nbsp;Uşaq sayı</label>
+        <div class="calc-input-row">
+          <input type="range" id="childCount" min="5" max="500" value="50" step="5" oninput="calcROI()">
+          <div class="range-val" id="childVal">50</div>
+        </div>
+      </div>
+      <div class="calc-input-group">
+        <label><i class="fas fa-calendar-alt"></i> &nbsp;Müdaxilə müddəti (il)</label>
+        <div class="calc-input-row">
+          <input type="range" id="years" min="1" max="5" value="3" step="1" oninput="calcROI()">
+          <div class="range-val" id="yearsVal">3</div>
+        </div>
+      </div>
+      <div class="calc-results">
+        <div class="calc-results-title">Hesablanmış Göstəricilər</div>
+        <div class="result-row">
+          <span class="result-label">Taxmini investisiya xərci</span>
+          <span class="result-value" id="costVal">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Gözlənilən qənaət (1:3 ROI)</span>
+          <span class="result-value" id="savingsVal">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Xalis fayda</span>
+          <span class="result-value big" id="netVal">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Faydalanan uşaq sayı</span>
+          <span class="result-value" id="impactVal">—</span>
+        </div>
+      </div>
+      <div class="calc-note">* Hesablama beynəlxalq qiymətləndirmələrə əsaslanır: iBASIS-VIPP (Avstraliya), ESDM araşdırmaları. Dəqiq rəqəmlər Mərkəzin pilot nəticələri ilə dəqiqləşdirilir.</div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<section>
+  <div class="section-eyebrow reveal">Sübut edilmiş nəticələr</div>
+  <div class="section-title reveal">Pilot proqram göstəriciləri</div>
+  <div class="results-grid reveal">
+    <div class="result-card"><div class="icon">🎯</div><div class="num">89%</div><div class="desc">Uşaqlarda ölçülən inkişaf nəticəsi</div></div>
+    <div class="result-card"><div class="icon">💚</div><div class="num">94%</div><div class="desc">Valideyn məmnunluğu dərəcəsi</div></div>
+    <div class="result-card"><div class="icon">🗺️</div><div class="num">47</div><div class="desc">Əhatə olunan rayon sayı</div></div>
+    <div class="result-card"><div class="icon">👨‍👩‍👧</div><div class="num">120+</div><div class="desc">Aktiv xidmətdə olan ailə</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="padding-top:0">
+  <div class="section-eyebrow reveal">Real Hekayələr</div>
+  <div class="section-title reveal">Ailələrin sözləri</div>
+  <div class="testi-card reveal">
+    <div class="testi-text">"Aygünün ilk dəfə öz-özünə alış-veriş etdiyini gördüm — bu, bizim üçün möcüzə idi. AN Mərkəzinin mütəxəssisləri ona real həyatda bacarıq qazandırdı."</div>
+    <div class="testi-author">
+      <div class="testi-avatar">A</div>
+      <div><div class="testi-name">Aygün xanım</div><div class="testi-role">Bakı, uşaq yaşı 7</div></div>
+    </div>
+  </div>
+  <div class="testi-card reveal">
+    <div class="testi-text">"Ordubaddan Bakıya gəlmək bizim üçün mümkün deyildi. Onlayn dəstək sayəsində Əhməd evdə mütəxəssislərlə işləyir — nəticələri heyranedicidir."</div>
+    <div class="testi-author">
+      <div class="testi-avatar">E</div>
+      <div><div class="testi-name">Əhmədin valideyni</div><div class="testi-role">Ordubad rayonu, uşaq yaşı 5</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div id="elaqe" style="padding-bottom:48px;">
+  <div class="contact-section reveal">
+    <div class="section-eyebrow">Əlaqə</div>
+    <div class="section-title">Bizimlə əlaqə saxlayın</div>
+    <div class="section-sub">İlk görüş pulsuzdur. Uşağınız üçün ən uyğun modeli birlikdə müəyyənləşdirərik.</div>
+    <div class="contact-items">
+      <a class="contact-item" href="tel:+994554157215">
+        <div class="ci-icon ci-phone"><i class="fas fa-phone"></i></div>
+        <div class="ci-text"><div class="ci-label">Zəng edin</div><div class="ci-val">+994 55 415 72 15</div></div>
+        <i class="fas fa-chevron-right" style="margin-left:auto;color:#ccc;font-size:12px"></i>
+      </a>
+      <a class="contact-item" href="https://www.instagram.com/an_psixologiyamerkezi" target="_blank">
+        <div class="ci-icon ci-insta"><i class="fab fa-instagram"></i></div>
+        <div class="ci-text"><div class="ci-label">Instagram</div><div class="ci-val">@an_psixologiyamerkezi</div></div>
+        <i class="fas fa-chevron-right" style="margin-left:auto;color:#ccc;font-size:12px"></i>
+      </a>
+      <a class="contact-item" href="https://maps.google.com/?q=Bakı,+Nizami+r.,+Rizvan+Teymurov+59" target="_blank">
+        <div class="ci-icon ci-loc"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="ci-text"><div class="ci-label">Ünvan</div><div class="ci-val">Bakı, Nizami r., Rizvan Teymurov 59</div></div>
+        <i class="fas fa-chevron-right" style="margin-left:auto;color:#ccc;font-size:12px"></i>
+      </a>
+    </div>
+    <button class="btn-primary" style="width:100%;justify-content:center;margin-top:4px;" onclick="document.getElementById('popup').classList.add('active')">
+      <i class="fas fa-paper-plane"></i> Müraciət göndər
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <img class="footer-logo" src="https://raw.githubusercontent.com/Samir210-az/an-merkezi/main/logo.png" alt="AN Logo">
+  <div style="margin-bottom:8px; color:rgba(255,255,255,0.7)">AN Psixoloji Dəstək və Reabilitasiya Mərkəzi</div>
+  <div>By <a href="https://www.instagram.com/s_akhundoff" target="_blank">@s_akhundoff</a></div>
+</footer>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popup" onclick="if(event.target===this)this.classList.remove('active')">
+  <div class="popup-box">
+    <button class="popup-close" onclick="document.getElementById('popup').classList.remove('active')">✕</button>
+    <div class="popup-icon">📋</div>
+    <div class="popup-title">Müraciət Formu</div>
+    <div class="popup-sub">Məlumatlarınızı göndərin, ən qısa zamanda sizinlə əlaqə saxlayacağıq.</div>
+    <div class="popup-form" id="popupForm">
+      <input type="text" id="pName" placeholder="Ad Soyad" required>
+      <input type="tel" id="pPhone" placeholder="Telefon nömrəsi (+994...)" required>
+      <input type="number" id="pAge" placeholder="Uşağın yaşı" min="1" max="18">
+      <textarea id="pNote" placeholder="Qısa məlumat (istəyə görə)..."></textarea>
+      <button class="popup-submit" onclick="submitForm()">Göndər <i class="fas fa-arrow-right"></i></button>
+    </div>
+    <div class="popup-success" id="popupSuccess">
+      <div class="s-icon">✅</div>
+      <p><strong>Müraciətiniz qəbul edildi!</strong><br>Tezliklə +994 55 415 72 15 nömrəsindən sizinlə əlaqə saxlanılacaq.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ROI Calculator
+function calcROI() {
+  const children = parseInt(document.getElementById('childCount').value);
+  const years = parseInt(document.getElementById('years').value);
+  document.getElementById('childVal').textContent = children;
+  document.getElementById('yearsVal').textContent = years;
+
+  // Cost per child per year ~ 2400 AZN (estimated)
+  const costPerChildYear = 2400;
+  const totalCost = children * costPerChildYear * years;
+
+  // 1:3 ROI from international data
+  const totalSavings = totalCost * 3;
+  const netBenefit = totalSavings - totalCost;
+
+  document.getElementById('costVal').textContent = formatNum(totalCost) + ' ₼';
+  document.getElementById('savingsVal').textContent = formatNum(totalSavings) + ' ₼';
+  document.getElementById('netVal').textContent = '+' + formatNum(netBenefit) + ' ₼';
+  document.getElementById('impactVal').textContent = children + ' uşaq & ailə';
+}
+
+function formatNum(n) {
+  if(n >= 1000000) return (n/1000000).toFixed(1) + 'M';
+  if(n >= 1000) return (n/1000).toFixed(0) + 'K';
+  return n.toString();
+}
+
+calcROI();
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Form submit simulation
+function submitForm() {
+  const name = document.getElementById('pName').value.trim();
+  const phone = document.getElementById('pPhone').value.trim();
+  if(!name || !phone) { alert('Ad və telefon nömrəsini daxil edin.'); return; }
+  document.getElementById('popupForm').style.display = 'none';
+  document.getElementById('popupSuccess').style.display = 'block';
+  setTimeout(() => {
+    document.getElementById('popup').classList.remove('active');
+    document.getElementById('popupForm').style.display = 'flex';
+    document.getElementById('popupSuccess').style.display = 'none';
+    document.getElementById('pName').value='';
+    document.getElementById('pPhone').value='';
+    document.getElementById('pAge').value='';
+    document.getElementById('pNote').value='';
+  }, 3500);
+}
+</script>
+</body>
+</html>
